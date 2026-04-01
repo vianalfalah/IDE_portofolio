@@ -1,16 +1,55 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useCallback } from "react";
+import TitleBar from "@/components/ide/TitleBar";
+import Sidebar, { FileId } from "@/components/ide/Sidebar";
+import TabBar from "@/components/ide/TabBar";
+import Breadcrumb from "@/components/ide/Breadcrumb";
+import EditorContent from "@/components/ide/EditorContent";
+import StatusBar from "@/components/ide/StatusBar";
+import Terminal from "@/components/ide/Terminal";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
+  const [activeFile, setActiveFile] = useState<FileId>("readme");
+  const [openTabs, setOpenTabs] = useState<FileId[]>(["readme"]);
+
+  const handleFileSelect = useCallback((file: FileId) => {
+    setActiveFile(file);
+    setOpenTabs((prev) => (prev.includes(file) ? prev : [...prev, file]));
+  }, []);
+
+  const handleTabClose = useCallback((tab: FileId) => {
+    setOpenTabs((prev) => {
+      const next = prev.filter((t) => t !== tab);
+      if (next.length === 0) return ["readme"];
+      return next;
+    });
+    if (activeFile === tab) {
+      setActiveFile((prev) => {
+        const tabs = openTabs.filter((t) => t !== tab);
+        return tabs.length > 0 ? tabs[tabs.length - 1] : "readme";
+      });
+    }
+  }, [activeFile, openTabs]);
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="flex flex-col h-screen overflow-hidden bg-background">
+      <TitleBar />
+      <div className="flex flex-1 overflow-hidden">
+        <Sidebar activeFile={activeFile} onFileSelect={handleFileSelect} />
+        <div className="flex flex-col flex-1 overflow-hidden">
+          <TabBar
+            openTabs={openTabs}
+            activeTab={activeFile}
+            onTabSelect={setActiveFile}
+            onTabClose={handleTabClose}
+          />
+          <Breadcrumb activeFile={activeFile} />
+          <EditorContent activeFile={activeFile} />
+          <Terminal />
+        </div>
+      </div>
+      <StatusBar activeFile={activeFile} />
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
