@@ -1,17 +1,8 @@
 import { GitBranch, Bell, CheckCircle } from "lucide-react";
-import { FileId } from "./Sidebar";
-
-const langMap: Record<FileId, string> = {
-  readme: "Markdown",
-  experience: "TypeScript React",
-  freelance: "TypeScript React",
-  education: "TypeScript",
-  skills: "JSON",
-  contact: "TypeScript",
-};
+import { getLanguage } from "@/data/fileTree";
 
 interface StatusBarProps {
-  activeFile: FileId;
+  activeFile: string;
 }
 
 const StatusBar = ({ activeFile }: StatusBarProps) => {
@@ -26,7 +17,7 @@ const StatusBar = ({ activeFile }: StatusBarProps) => {
         </span>
       </div>
       <div className="flex items-center gap-3">
-        <span>{langMap[activeFile]}</span>
+        <span>{getLanguage(activeFile)}</span>
         <span>UTF-8</span>
         <span>Spaces: 2</span>
         <Bell size={12} />

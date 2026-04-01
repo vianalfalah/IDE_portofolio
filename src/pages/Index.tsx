@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import TitleBar from "@/components/ide/TitleBar";
-import Sidebar, { FileId } from "@/components/ide/Sidebar";
+import Sidebar from "@/components/ide/Sidebar";
 import TabBar from "@/components/ide/TabBar";
 import Breadcrumb from "@/components/ide/Breadcrumb";
 import EditorContent from "@/components/ide/EditorContent";
@@ -8,15 +8,15 @@ import StatusBar from "@/components/ide/StatusBar";
 import Terminal from "@/components/ide/Terminal";
 
 const Index = () => {
-  const [activeFile, setActiveFile] = useState<FileId>("readme");
-  const [openTabs, setOpenTabs] = useState<FileId[]>(["readme"]);
+  const [activeFile, setActiveFile] = useState<string>("readme");
+  const [openTabs, setOpenTabs] = useState<string[]>(["readme"]);
 
-  const handleFileSelect = useCallback((file: FileId) => {
+  const handleFileSelect = useCallback((file: string) => {
     setActiveFile(file);
     setOpenTabs((prev) => (prev.includes(file) ? prev : [...prev, file]));
   }, []);
 
-  const handleTabClose = useCallback((tab: FileId) => {
+  const handleTabClose = useCallback((tab: string) => {
     setOpenTabs((prev) => {
       const next = prev.filter((t) => t !== tab);
       if (next.length === 0) return ["readme"];

@@ -1,8 +1,9 @@
-import { FileId } from "./Sidebar";
 import { motion, AnimatePresence } from "framer-motion";
+import { projectContents, indexContents, type ProjectData, type IndexSummary } from "@/data/projectContent";
+import { Badge } from "@/components/ui/badge";
 
 interface EditorContentProps {
-  activeFile: FileId;
+  activeFile: string;
 }
 
 const CodeLine = ({ num, children }: { num: number; children: React.ReactNode }) => (
@@ -20,6 +21,114 @@ const Tp = ({ children }: { children: React.ReactNode }) => <span className="tex
 const Pr = ({ children }: { children: React.ReactNode }) => <span className="text-syntax-property">{children}</span>;
 const Nm = ({ children }: { children: React.ReactNode }) => <span className="text-syntax-number">{children}</span>;
 
+// === INDEX / SUMMARY VIEW ===
+const IndexView = ({ data }: { data: IndexSummary }) => {
+  let line = 1;
+  return (
+    <div className="text-sm leading-7">
+      <CodeLine num={line++}><Cm>{`// ${data.title} — ${data.subtitle}`}</Cm></CodeLine>
+      <CodeLine num={line++}><span></span></CodeLine>
+      <CodeLine num={line++}><Kw>import</Kw> {'{ '}<Tp>Career</Tp>{' }'} <Kw>from</Kw> <Str>"@/types/portfolio"</Str>;</CodeLine>
+      <CodeLine num={line++}><span></span></CodeLine>
+      <CodeLine num={line++}><Cm>{`// Periode: ${data.period}`}</Cm></CodeLine>
+      <CodeLine num={line++}><span></span></CodeLine>
+      <CodeLine num={line++}><Kw>const</Kw> <Fn>summary</Fn>: <Tp>Career</Tp>[] = [</CodeLine>
+      {data.entries.map((entry, i) => (
+        <div key={i}>
+          <CodeLine num={line++}>{'  {'}</CodeLine>
+          <CodeLine num={line++}>{'    '}<Pr>company</Pr>: <Str>"{entry.company}"</Str>,</CodeLine>
+          <CodeLine num={line++}>{'    '}<Pr>role</Pr>: <Str>"{entry.role}"</Str>,</CodeLine>
+          <CodeLine num={line++}>{'    '}<Pr>period</Pr>: <Str>"{entry.period}"</Str>,</CodeLine>
+          <CodeLine num={line++}>{'    '}<Pr>projects</Pr>: <Nm>{entry.projectCount}</Nm>,</CodeLine>
+          <CodeLine num={line++}>{'    '}<Pr>highlights</Pr>: [</CodeLine>
+          {entry.highlights.map((h, j) => (
+            <CodeLine key={j} num={line++}>{'      '}<Str>"{h}"</Str>,</CodeLine>
+          ))}
+          <CodeLine num={line++}>{'    ],'}</CodeLine>
+          <CodeLine num={line++}>{'  },'}</CodeLine>
+        </div>
+      ))}
+      <CodeLine num={line++}>{'];'}</CodeLine>
+      <CodeLine num={line++}><span></span></CodeLine>
+      <CodeLine num={line++}><Cm>{'// 📂 Buka folder perusahaan di sidebar untuk melihat detail project'}</Cm></CodeLine>
+      <CodeLine num={line++}><span></span></CodeLine>
+      <CodeLine num={line++}><Kw>export default</Kw> <Fn>summary</Fn>;</CodeLine>
+    </div>
+  );
+};
+
+// === PROJECT DETAIL VIEW ===
+const ProjectView = ({ data }: { data: ProjectData }) => {
+  let line = 1;
+  return (
+    <div className="text-sm leading-7">
+      <CodeLine num={line++}><Cm>{`// ${data.title} — ${data.company}`}</Cm></CodeLine>
+      <CodeLine num={line++}><span></span></CodeLine>
+      <CodeLine num={line++}><Kw>import</Kw> {'{ '}<Tp>Project</Tp>{' }'} <Kw>from</Kw> <Str>"@/types/portfolio"</Str>;</CodeLine>
+      <CodeLine num={line++}><span></span></CodeLine>
+      <CodeLine num={line++}><Kw>const</Kw> <Fn>project</Fn>: <Tp>Project</Tp> = {'{'}</CodeLine>
+      <CodeLine num={line++}>{'  '}<Pr>title</Pr>: <Str>"{data.title}"</Str>,</CodeLine>
+      <CodeLine num={line++}>{'  '}<Pr>company</Pr>: <Str>"{data.company}"</Str>,</CodeLine>
+      {data.role && <CodeLine num={line++}>{'  '}<Pr>role</Pr>: <Str>"{data.role}"</Str>,</CodeLine>}
+      <CodeLine num={line++}>{'  '}<Pr>period</Pr>: <Str>"{data.period}"</Str>,</CodeLine>
+      <CodeLine num={line++}><span></span></CodeLine>
+      <CodeLine num={line++}>{'  '}<Cm>{`// ${data.summary}`}</Cm></CodeLine>
+      <CodeLine num={line++}><span></span></CodeLine>
+      <CodeLine num={line++}>{'  '}<Pr>highlights</Pr>: [</CodeLine>
+      {data.description.map((d, i) => (
+        <CodeLine key={i} num={line++}>{'    '}<Str>"{d}"</Str>,</CodeLine>
+      ))}
+      <CodeLine num={line++}>{'  ],'}</CodeLine>
+      <CodeLine num={line++}><span></span></CodeLine>
+
+      {/* Preview Images */}
+      <CodeLine num={line++}>{'  '}<Cm>{'// 📸 Preview'}</Cm></CodeLine>
+      <CodeLine num={line++}>{'  '}<Pr>screenshots</Pr>: [</CodeLine>
+      <CodeLine num={line++}><span></span></CodeLine>
+
+      {/* Render images inline with code aesthetic */}
+      <div className="pl-12 pr-4 py-2 flex gap-3 overflow-x-auto ide-scrollbar">
+        {data.images.map((img, i) => (
+          <div key={i} className="shrink-0 rounded border border-border overflow-hidden group relative">
+            <img
+              src={img.src}
+              alt={img.alt}
+              className="w-[280px] h-[160px] object-cover transition-transform group-hover:scale-105"
+              loading="lazy"
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-background/80 backdrop-blur-sm px-2 py-1 text-[10px] text-muted-foreground">
+              {img.alt}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <CodeLine num={line++}>{'  ],'}</CodeLine>
+      <CodeLine num={line++}><span></span></CodeLine>
+
+      {/* Tech Stack */}
+      <CodeLine num={line++}>{'  '}<Cm>{'// 🛠 Tech Stack'}</Cm></CodeLine>
+      <CodeLine num={line++}>{'  '}<Pr>stack</Pr>: [</CodeLine>
+      <div className="pl-12 pr-4 py-2 flex flex-wrap gap-1.5">
+        {data.stack.map((tech) => (
+          <Badge
+            key={tech}
+            variant="secondary"
+            className="text-[11px] font-mono bg-ide-selection text-foreground border-border"
+          >
+            {tech}
+          </Badge>
+        ))}
+      </div>
+      <CodeLine num={line++}>{'  ],'}</CodeLine>
+      <CodeLine num={line++}>{'}'}</CodeLine>
+      <CodeLine num={line++}><span></span></CodeLine>
+      <CodeLine num={line++}><Kw>export default</Kw> <Fn>project</Fn>;</CodeLine>
+    </div>
+  );
+};
+
+// === ORIGINAL CONTENT VIEWS ===
 const ReadmeContent = () => (
   <div className="text-sm leading-7">
     <CodeLine num={1}><Cm>{`# 👋 Hello, I'm a Frontend Developer`}</Cm></CodeLine>
@@ -41,96 +150,11 @@ const ReadmeContent = () => (
     <CodeLine num={17}><Cm>## Quick Start</Cm></CodeLine>
     <CodeLine num={18}><span></span></CodeLine>
     <CodeLine num={19}><span>Navigate file explorer di sidebar kiri untuk melihat:</span></CodeLine>
-    <CodeLine num={20}><span>- 📄 <Str>experience.tsx</Str> — Pengalaman kerja profesional</span></CodeLine>
-    <CodeLine num={21}><span>- 📄 <Str>freelance.tsx</Str> — Proyek freelance</span></CodeLine>
+    <CodeLine num={20}><span>- 📂 <Str>experience/</Str> — Pengalaman kerja profesional</span></CodeLine>
+    <CodeLine num={21}><span>- 📂 <Str>freelance/</Str> — Proyek freelance</span></CodeLine>
     <CodeLine num={22}><span>- 📄 <Str>education.ts</Str> — Pendidikan & pelatihan</span></CodeLine>
     <CodeLine num={23}><span>- 📄 <Str>skills.json</Str> — Technical skills</span></CodeLine>
     <CodeLine num={24}><span>- 📄 <Str>contact.ts</Str> — Kontak & sosial media</span></CodeLine>
-  </div>
-);
-
-const ExperienceContent = () => (
-  <div className="text-sm leading-7">
-    <CodeLine num={1}><Cm>{'// experience.tsx — Pengalaman Kerja Profesional'}</Cm></CodeLine>
-    <CodeLine num={2}><span></span></CodeLine>
-    <CodeLine num={3}><Kw>import</Kw> {'{ '}<Tp>Experience</Tp>{' }'} <Kw>from</Kw> <Str>"@/types/career"</Str>;</CodeLine>
-    <CodeLine num={4}><span></span></CodeLine>
-    <CodeLine num={5}><Kw>const</Kw> <Fn>workExperience</Fn>: <Tp>Experience</Tp>[] = [</CodeLine>
-    <CodeLine num={6}>{'  {'}</CodeLine>
-    <CodeLine num={7}>{'    '}<Pr>company</Pr>: <Str>"Tech Startup Indonesia"</Str>,</CodeLine>
-    <CodeLine num={8}>{'    '}<Pr>role</Pr>: <Str>"Senior Frontend Developer"</Str>,</CodeLine>
-    <CodeLine num={9}>{'    '}<Pr>period</Pr>: <Str>"2022 — Sekarang"</Str>,</CodeLine>
-    <CodeLine num={10}>{'    '}<Pr>highlights</Pr>: [</CodeLine>
-    <CodeLine num={11}>{'      '}<Str>"Memimpin tim frontend 5 orang"</Str>,</CodeLine>
-    <CodeLine num={12}>{'      '}<Str>"Migrasi dari CRA ke Next.js, performa +40%"</Str>,</CodeLine>
-    <CodeLine num={13}>{'      '}<Str>"Implementasi design system & component library"</Str>,</CodeLine>
-    <CodeLine num={14}>{'      '}<Str>"Code review & mentoring junior developer"</Str>,</CodeLine>
-    <CodeLine num={15}>{'    ],'}</CodeLine>
-    <CodeLine num={16}>{'  },'}</CodeLine>
-    <CodeLine num={17}>{'  {'}</CodeLine>
-    <CodeLine num={18}>{'    '}<Pr>company</Pr>: <Str>"Digital Agency Jakarta"</Str>,</CodeLine>
-    <CodeLine num={19}>{'    '}<Pr>role</Pr>: <Str>"Frontend Developer"</Str>,</CodeLine>
-    <CodeLine num={20}>{'    '}<Pr>period</Pr>: <Str>"2020 — 2022"</Str>,</CodeLine>
-    <CodeLine num={21}>{'    '}<Pr>highlights</Pr>: [</CodeLine>
-    <CodeLine num={22}>{'      '}<Str>"Develop 10+ web app untuk klien enterprise"</Str>,</CodeLine>
-    <CodeLine num={23}>{'      '}<Str>"Integrasi REST API & GraphQL"</Str>,</CodeLine>
-    <CodeLine num={24}>{'      '}<Str>"Optimasi SEO & Core Web Vitals"</Str>,</CodeLine>
-    <CodeLine num={25}>{'    ],'}</CodeLine>
-    <CodeLine num={26}>{'  },'}</CodeLine>
-    <CodeLine num={27}>{'  {'}</CodeLine>
-    <CodeLine num={28}>{'    '}<Pr>company</Pr>: <Str>"Software House Bandung"</Str>,</CodeLine>
-    <CodeLine num={29}>{'    '}<Pr>role</Pr>: <Str>"Junior Frontend Developer"</Str>,</CodeLine>
-    <CodeLine num={30}>{'    '}<Pr>period</Pr>: <Str>"2019 — 2020"</Str>,</CodeLine>
-    <CodeLine num={31}>{'    '}<Pr>highlights</Pr>: [</CodeLine>
-    <CodeLine num={32}>{'      '}<Str>"Belajar React & modern JavaScript"</Str>,</CodeLine>
-    <CodeLine num={33}>{'      '}<Str>"Slicing UI dari Figma ke responsive web"</Str>,</CodeLine>
-    <CodeLine num={34}>{'      '}<Str>"Kolaborasi dengan tim backend & designer"</Str>,</CodeLine>
-    <CodeLine num={35}>{'    ],'}</CodeLine>
-    <CodeLine num={36}>{'  },'}</CodeLine>
-    <CodeLine num={37}>{']'}</CodeLine>
-    <CodeLine num={38}><span></span></CodeLine>
-    <CodeLine num={39}><Kw>export default</Kw> <Fn>workExperience</Fn>;</CodeLine>
-  </div>
-);
-
-const FreelanceContent = () => (
-  <div className="text-sm leading-7">
-    <CodeLine num={1}><Cm>{'// freelance.tsx — Proyek Freelance'}</Cm></CodeLine>
-    <CodeLine num={2}><span></span></CodeLine>
-    <CodeLine num={3}><Kw>import</Kw> {'{ '}<Tp>Project</Tp>{' }'} <Kw>from</Kw> <Str>"@/types/portfolio"</Str>;</CodeLine>
-    <CodeLine num={4}><span></span></CodeLine>
-    <CodeLine num={5}><Kw>const</Kw> <Fn>freelanceProjects</Fn>: <Tp>Project</Tp>[] = [</CodeLine>
-    <CodeLine num={6}>{'  {'}</CodeLine>
-    <CodeLine num={7}>{'    '}<Pr>name</Pr>: <Str>"E-Commerce Platform"</Str>,</CodeLine>
-    <CodeLine num={8}>{'    '}<Pr>client</Pr>: <Str>"Fashion Brand Lokal"</Str>,</CodeLine>
-    <CodeLine num={9}>{'    '}<Pr>tech</Pr>: [<Str>"Next.js"</Str>, <Str>"Tailwind"</Str>, <Str>"Stripe"</Str>],</CodeLine>
-    <CodeLine num={10}>{'    '}<Pr>description</Pr>: <Str>"Full e-commerce dengan payment gateway"</Str>,</CodeLine>
-    <CodeLine num={11}>{'    '}<Pr>year</Pr>: <Nm>2023</Nm>,</CodeLine>
-    <CodeLine num={12}>{'  },'}</CodeLine>
-    <CodeLine num={13}>{'  {'}</CodeLine>
-    <CodeLine num={14}>{'    '}<Pr>name</Pr>: <Str>"Dashboard Analytics"</Str>,</CodeLine>
-    <CodeLine num={15}>{'    '}<Pr>client</Pr>: <Str>"Startup Fintech"</Str>,</CodeLine>
-    <CodeLine num={16}>{'    '}<Pr>tech</Pr>: [<Str>"React"</Str>, <Str>"D3.js"</Str>, <Str>"TypeScript"</Str>],</CodeLine>
-    <CodeLine num={17}>{'    '}<Pr>description</Pr>: <Str>"Real-time data visualization dashboard"</Str>,</CodeLine>
-    <CodeLine num={18}>{'    '}<Pr>year</Pr>: <Nm>2023</Nm>,</CodeLine>
-    <CodeLine num={19}>{'  },'}</CodeLine>
-    <CodeLine num={20}>{'  {'}</CodeLine>
-    <CodeLine num={21}>{'    '}<Pr>name</Pr>: <Str>"Company Profile Website"</Str>,</CodeLine>
-    <CodeLine num={22}>{'    '}<Pr>client</Pr>: <Str>"Perusahaan Manufaktur"</Str>,</CodeLine>
-    <CodeLine num={23}>{'    '}<Pr>tech</Pr>: [<Str>"Vue.js"</Str>, <Str>"GSAP"</Str>, <Str>"Prismic CMS"</Str>],</CodeLine>
-    <CodeLine num={24}>{'    '}<Pr>description</Pr>: <Str>"Website interaktif dengan animasi premium"</Str>,</CodeLine>
-    <CodeLine num={25}>{'    '}<Pr>year</Pr>: <Nm>2022</Nm>,</CodeLine>
-    <CodeLine num={26}>{'  },'}</CodeLine>
-    <CodeLine num={27}>{'  {'}</CodeLine>
-    <CodeLine num={28}>{'    '}<Pr>name</Pr>: <Str>"Learning Management System"</Str>,</CodeLine>
-    <CodeLine num={29}>{'    '}<Pr>client</Pr>: <Str>"Lembaga Pendidikan"</Str>,</CodeLine>
-    <CodeLine num={30}>{'    '}<Pr>tech</Pr>: [<Str>"React"</Str>, <Str>"Node.js"</Str>, <Str>"MongoDB"</Str>],</CodeLine>
-    <CodeLine num={31}>{'    '}<Pr>description</Pr>: <Str>"Platform e-learning dengan video streaming"</Str>,</CodeLine>
-    <CodeLine num={32}>{'    '}<Pr>year</Pr>: <Nm>2021</Nm>,</CodeLine>
-    <CodeLine num={33}>{'  },'}</CodeLine>
-    <CodeLine num={34}>{']'}</CodeLine>
-    <CodeLine num={35}><span></span></CodeLine>
-    <CodeLine num={36}><Kw>export default</Kw> <Fn>freelanceProjects</Fn>;</CodeLine>
   </div>
 );
 
@@ -218,17 +242,40 @@ const ContactContent = () => (
   </div>
 );
 
-const contentMap: Record<FileId, React.FC> = {
+// Static content map for non-project files
+const staticContentMap: Record<string, React.FC> = {
   readme: ReadmeContent,
-  experience: ExperienceContent,
-  freelance: FreelanceContent,
   education: EducationContent,
   skills: SkillsContent,
   contact: ContactContent,
 };
 
 const EditorContent = ({ activeFile }: EditorContentProps) => {
-  const Content = contentMap[activeFile];
+  const renderContent = () => {
+    // Check static content first
+    if (staticContentMap[activeFile]) {
+      const Content = staticContentMap[activeFile];
+      return <Content />;
+    }
+
+    // Check index summaries
+    if (indexContents[activeFile]) {
+      return <IndexView data={indexContents[activeFile]} />;
+    }
+
+    // Check project content
+    if (projectContents[activeFile]) {
+      return <ProjectView data={projectContents[activeFile]} />;
+    }
+
+    // Fallback
+    return (
+      <div className="text-sm leading-7">
+        <CodeLine num={1}><Cm>{'// File not found'}</Cm></CodeLine>
+      </div>
+    );
+  };
+
   return (
     <div className="flex-1 overflow-y-auto ide-scrollbar p-0 font-mono">
       <AnimatePresence mode="wait">
@@ -240,7 +287,7 @@ const EditorContent = ({ activeFile }: EditorContentProps) => {
           transition={{ duration: 0.15 }}
           className="py-2"
         >
-          <Content />
+          {renderContent()}
         </motion.div>
       </AnimatePresence>
     </div>
