@@ -644,9 +644,6 @@ const ContactContent = () => (
     <CodeLine num={15}>
       <Cm>{"// ✅ Open source collaboration"}</Cm>
     </CodeLine>
-    <CodeLine num={16}>
-      <Cm>{"// ✅ Technical consulting"}</Cm>
-    </CodeLine>
     <CodeLine num={17}>
       <span></span>
     </CodeLine>
