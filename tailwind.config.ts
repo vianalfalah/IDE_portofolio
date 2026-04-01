@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        mono: ["JetBrains Mono", "monospace"],
+        sans: ["Inter", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -47,6 +51,32 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        ide: {
+          sidebar: "hsl(var(--ide-sidebar))",
+          "sidebar-foreground": "hsl(var(--ide-sidebar-foreground))",
+          "sidebar-active": "hsl(var(--ide-sidebar-active))",
+          titlebar: "hsl(var(--ide-titlebar))",
+          tab: "hsl(var(--ide-tab))",
+          "tab-active": "hsl(var(--ide-tab-active))",
+          "tab-border": "hsl(var(--ide-tab-border))",
+          terminal: "hsl(var(--ide-terminal))",
+          "terminal-foreground": "hsl(var(--ide-terminal-foreground))",
+          statusbar: "hsl(var(--ide-statusbar))",
+          "statusbar-foreground": "hsl(var(--ide-statusbar-foreground))",
+          "line-number": "hsl(var(--ide-line-number))",
+          selection: "hsl(var(--ide-selection))",
+          minimap: "hsl(var(--ide-minimap))",
+        },
+        syntax: {
+          keyword: "hsl(var(--syntax-keyword))",
+          string: "hsl(var(--syntax-string))",
+          function: "hsl(var(--syntax-function))",
+          variable: "hsl(var(--syntax-variable))",
+          number: "hsl(var(--syntax-number))",
+          comment: "hsl(var(--syntax-comment))",
+          type: "hsl(var(--syntax-type))",
+          property: "hsl(var(--syntax-property))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -65,25 +95,27 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "blink": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0" },
+        },
+        "typing": {
+          from: { width: "0" },
+          to: { width: "100%" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "blink": "blink 1s step-end infinite",
+        "typing": "typing 2s steps(40) forwards",
       },
     },
   },

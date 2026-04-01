@@ -2,95 +2,136 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 220 14% 96%;
+    --foreground: 220 13% 18%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 13% 18%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 13% 18%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 210 100% 50%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 220 14% 92%;
+    --secondary-foreground: 220 13% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 14% 90%;
+    --muted-foreground: 220 9% 46%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 100% 50%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 13% 87%;
+    --input: 220 13% 87%;
+    --ring: 210 100% 50%;
+    --radius: 0.25rem;
 
-    --radius: 0.5rem;
+    /* IDE specific tokens */
+    --ide-sidebar: 220 14% 93%;
+    --ide-sidebar-foreground: 220 9% 40%;
+    --ide-sidebar-active: 210 100% 50%;
+    --ide-titlebar: 220 14% 90%;
+    --ide-tab: 220 14% 96%;
+    --ide-tab-active: 0 0% 100%;
+    --ide-tab-border: 210 100% 50%;
+    --ide-terminal: 220 14% 97%;
+    --ide-terminal-foreground: 220 13% 25%;
+    --ide-statusbar: 210 100% 50%;
+    --ide-statusbar-foreground: 0 0% 100%;
+    --ide-line-number: 220 9% 70%;
+    --ide-selection: 210 100% 90%;
+    --ide-minimap: 220 14% 94%;
 
-    --sidebar-background: 0 0% 98%;
+    /* Syntax colors - light */
+    --syntax-keyword: 300 63% 40%;
+    --syntax-string: 120 56% 35%;
+    --syntax-function: 210 100% 40%;
+    --syntax-variable: 220 13% 18%;
+    --syntax-number: 30 80% 45%;
+    --syntax-comment: 220 9% 55%;
+    --syntax-type: 180 60% 35%;
+    --syntax-property: 15 80% 45%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 220 14% 93%;
+    --sidebar-foreground: 220 9% 40%;
+    --sidebar-primary: 210 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 100% 95%;
+    --sidebar-accent-foreground: 210 100% 40%;
+    --sidebar-border: 220 13% 87%;
+    --sidebar-ring: 210 100% 50%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 220 13% 18%;
+    --foreground: 220 13% 86%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 220 13% 20%;
+    --card-foreground: 220 13% 86%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 220 13% 16%;
+    --popover-foreground: 220 13% 86%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 210 100% 56%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 220 13% 22%;
+    --secondary-foreground: 220 13% 80%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 220 13% 22%;
+    --muted-foreground: 220 9% 55%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 210 100% 56%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --border: 220 13% 25%;
+    --input: 220 13% 25%;
+    --ring: 210 100% 56%;
+
+    /* IDE specific tokens - dark (VS Code Dark+ inspired) */
+    --ide-sidebar: 220 13% 15%;
+    --ide-sidebar-foreground: 220 9% 65%;
+    --ide-sidebar-active: 210 100% 56%;
+    --ide-titlebar: 220 13% 13%;
+    --ide-tab: 220 13% 18%;
+    --ide-tab-active: 220 13% 20%;
+    --ide-tab-border: 210 100% 56%;
+    --ide-terminal: 220 13% 12%;
+    --ide-terminal-foreground: 120 40% 60%;
+    --ide-statusbar: 210 100% 40%;
+    --ide-statusbar-foreground: 0 0% 100%;
+    --ide-line-number: 220 9% 35%;
+    --ide-selection: 210 60% 25%;
+    --ide-minimap: 220 13% 16%;
+
+    /* Syntax colors - dark (VS Code Dark+ palette) */
+    --syntax-keyword: 300 60% 70%;
+    --syntax-string: 30 80% 65%;
+    --syntax-function: 55 80% 70%;
+    --syntax-variable: 200 70% 70%;
+    --syntax-number: 100 55% 65%;
+    --syntax-comment: 120 30% 45%;
+    --syntax-type: 170 60% 60%;
+    --syntax-property: 200 70% 70%;
+
+    --sidebar-background: 220 13% 15%;
+    --sidebar-foreground: 220 9% 65%;
+    --sidebar-primary: 210 100% 56%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 220 13% 22%;
+    --sidebar-accent-foreground: 220 13% 86%;
+    --sidebar-border: 220 13% 25%;
+    --sidebar-ring: 210 100% 56%;
   }
 }
 
@@ -101,5 +142,29 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .font-sans {
+    font-family: 'Inter', sans-serif;
+  }
+  .ide-scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  .ide-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .ide-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 5px;
+  }
+  .ide-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
   }
 }
