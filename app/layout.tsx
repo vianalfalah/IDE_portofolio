@@ -6,17 +6,27 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://yourdomain.com"),
+  metadataBase: new URL("https://vianalfalah-portofolio.vercel.app"),
   title: {
-    default: "Portfolio - Developer",
-    template: "%s | Portfolio",
+    default: "Portfolio - Oviano Gunadi AL",
+    template: "%s | Oviano Gunadi AL",
   },
-  description: "Software developer specializing in React, Next.js, and TypeScript",
-  keywords: ["frontend developer", "react", "nextjs", "typescript"],
-  authors: [{ name: "Your Name" }],
+  description: "Frontend Web Developer with 5+ years experience in React, Next.js, TypeScript, and modern web technologies",
+  keywords: ["frontend developer", "react", "nextjs", "typescript", "web developer", "oviano gunadi"],
+  authors: [{ name: "Oviano Gunadi AL" }],
+  creator: "Oviano Gunadi AL",
   openGraph: {
     type: "website",
     locale: "en_US",
+    siteName: "Oviano Gunadi AL Portfolio",
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: "@oviano",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

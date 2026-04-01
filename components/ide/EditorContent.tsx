@@ -132,29 +132,46 @@ const ProjectView = ({ data }: { data: ProjectData }) => {
 // === ORIGINAL CONTENT VIEWS ===
 const ReadmeContent = () => (
   <div className="text-sm leading-7">
-    <CodeLine num={1}><Cm>{`# 👋 Hello, I'm a Frontend Developer`}</Cm></CodeLine>
-    <CodeLine num={2}><span></span></CodeLine>
-    <CodeLine num={3}><Cm>## About Me</Cm></CodeLine>
-    <CodeLine num={4}><span></span></CodeLine>
-    <CodeLine num={5}><span>Seorang <Str>Frontend Web Developer</Str> berpengalaman lebih dari</span></CodeLine>
-    <CodeLine num={6}><span><Nm>5 tahun</Nm> dalam membangun aplikasi web modern yang</span></CodeLine>
-    <CodeLine num={7}><span>performant, accessible, dan user-friendly.</span></CodeLine>
-    <CodeLine num={8}><span></span></CodeLine>
-    <CodeLine num={9}><Cm>## Tech Stack</Cm></CodeLine>
+    <CodeLine num={1}><Cm>{`# 👋 Hi, I'm Oviano Gunadi AL`}</Cm></CodeLine>
+    <CodeLine num={2}><Cm>{`# Frontend Web Developer`}</Cm></CodeLine>
+    <CodeLine num={3}><span></span></CodeLine>
+    <CodeLine num={4}><Cm>## About Me</Cm></CodeLine>
+    <CodeLine num={5}><span></span></CodeLine>
+    <CodeLine num={6}><span>Seorang <Str>Frontend Web Developer</Str> berpengalaman lebih dari</span></CodeLine>
+    <CodeLine num={7}><span><Nm>5 tahun</Nm> dalam membangun aplikasi web modern yang</span></CodeLine>
+    <CodeLine num={8}><span>performant, accessible, dan user-friendly.</span></CodeLine>
+    <CodeLine num={9}><span></span></CodeLine>
+
+    {/* CV Download Button */}
+    <div className="pl-12 pr-4 py-2">
+      <a
+        href="/assets/documents/CV Oviano Gunadi AL.pdf"
+        download
+        className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors text-sm font-medium"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" x2="12" y1="15" y2="3"/>
+        </svg>
+        Download CV
+      </a>
+    </div>
+
     <CodeLine num={10}><span></span></CodeLine>
-    <CodeLine num={11}><span>- ⚛️  <Str>React</Str> / <Str>Next.js</Str> / <Str>Vue.js</Str></span></CodeLine>
-    <CodeLine num={12}><span>- 📘  <Str>TypeScript</Str> / <Str>JavaScript ES6+</Str></span></CodeLine>
-    <CodeLine num={13}><span>- 🎨  <Str>Tailwind CSS</Str> / <Str>Styled Components</Str> / <Str>SCSS</Str></span></CodeLine>
-    <CodeLine num={14}><span>- 🧪  <Str>Jest</Str> / <Str>React Testing Library</Str> / <Str>Cypress</Str></span></CodeLine>
-    <CodeLine num={15}><span>- 🔧  <Str>Git</Str> / <Str>CI/CD</Str> / <Str>Docker</Str></span></CodeLine>
-    <CodeLine num={16}><span></span></CodeLine>
-    <CodeLine num={17}><Cm>## Quick Start</Cm></CodeLine>
+    <CodeLine num={11}><Cm>## Tech Stack</Cm></CodeLine>
+    <CodeLine num={12}><span></span></CodeLine>
+    <CodeLine num={13}><span>- ⚛️  <Str>React</Str> / <Str>Next.js</Str> / <Str>Vue.js</Str></span></CodeLine>
+    <CodeLine num={14}><span>- 📘  <Str>TypeScript</Str> / <Str>JavaScript ES6+</Str></span></CodeLine>
+    <CodeLine num={15}><span>- 🎨  <Str>Tailwind CSS</Str> / <Str>Styled Components</Str> / <Str>SCSS</Str></span></CodeLine>
+    <CodeLine num={16}><span>- 🧪  <Str>Jest</Str> / <Str>React Testing Library</Str> / <Str>Cypress</Str></span></CodeLine>
+    <CodeLine num={17}><span>- 🔧  <Str>Git</Str> / <Str>CI/CD</Str> / <Str>Docker</Str></span></CodeLine>
     <CodeLine num={18}><span></span></CodeLine>
-    <CodeLine num={19}><span>Navigate file explorer di sidebar kiri untuk melihat:</span></CodeLine>
-    <CodeLine num={20}><span>- 📂 <Str>experience/</Str> — Pengalaman kerja profesional</span></CodeLine>
-    <CodeLine num={21}><span>- 📂 <Str>freelance/</Str> — Proyek freelance</span></CodeLine>
-    <CodeLine num={22}><span>- 📄 <Str>education.ts</Str> — Pendidikan & pelatihan</span></CodeLine>
-    <CodeLine num={23}><span>- 📄 <Str>skills.json</Str> — Technical skills</span></CodeLine>
+    <CodeLine num={19}><Cm>## Quick Start</Cm></CodeLine>
+    <CodeLine num={20}><span></span></CodeLine>
+    <CodeLine num={21}><span>Navigate file explorer di sidebar kiri untuk melihat:</span></CodeLine>
+    <CodeLine num={22}><span>- 📂 <Str>experience/</Str> — Pengalaman kerja profesional</span></CodeLine>
+    <CodeLine num={23}><span>- 📂 <Str>freelance/</Str> — Proyek freelance</span></CodeLine>
     <CodeLine num={24}><span>- 📄 <Str>contact.ts</Str> — Kontak & sosial media</span></CodeLine>
   </div>
 );
@@ -226,20 +243,38 @@ const ContactContent = () => (
     <CodeLine num={1}><Cm>{'// contact.ts — Let\'s Connect!'}</Cm></CodeLine>
     <CodeLine num={2}><span></span></CodeLine>
     <CodeLine num={3}><Kw>const</Kw> <Fn>contact</Fn> = {'{'}</CodeLine>
-    <CodeLine num={4}>{'  '}<Pr>email</Pr>: <Str>"developer@example.com"</Str>,</CodeLine>
-    <CodeLine num={5}>{'  '}<Pr>linkedin</Pr>: <Str>"linkedin.com/in/developer"</Str>,</CodeLine>
-    <CodeLine num={6}>{'  '}<Pr>github</Pr>: <Str>"github.com/developer"</Str>,</CodeLine>
-    <CodeLine num={7}>{'  '}<Pr>website</Pr>: <Str>"developer.dev"</Str>,</CodeLine>
+    <CodeLine num={4}>{'  '}<Pr>name</Pr>: <Str>"Oviano Gunadi AL"</Str>,</CodeLine>
+    <CodeLine num={5}>{'  '}<Pr>email</Pr>: <Str>"oviano@example.com"</Str>,</CodeLine>
+    <CodeLine num={6}>{'  '}<Pr>linkedin</Pr>: <Str>"linkedin.com/in/oviano"</Str>,</CodeLine>
+    <CodeLine num={7}>{'  '}<Pr>github</Pr>: <Str>"github.com/oviano"</Str>,</CodeLine>
     <CodeLine num={8}>{'  '}<Pr>location</Pr>: <Str>"Indonesia 🇮🇩"</Str>,</CodeLine>
     <CodeLine num={9}>{'}'}</CodeLine>
     <CodeLine num={10}><span></span></CodeLine>
-    <CodeLine num={11}><Cm>{'// Available for:'}</Cm></CodeLine>
-    <CodeLine num={12}><Cm>{'// ✅ Full-time positions'}</Cm></CodeLine>
-    <CodeLine num={13}><Cm>{'// ✅ Freelance projects'}</Cm></CodeLine>
-    <CodeLine num={14}><Cm>{'// ✅ Open source collaboration'}</Cm></CodeLine>
-    <CodeLine num={15}><Cm>{'// ✅ Technical consulting'}</Cm></CodeLine>
-    <CodeLine num={16}><span></span></CodeLine>
-    <CodeLine num={17}><Kw>export default</Kw> <Fn>contact</Fn>;</CodeLine>
+
+    {/* CV Download Button */}
+    <div className="pl-12 pr-4 py-2">
+      <a
+        href="/assets/documents/CV Oviano Gunadi AL.pdf"
+        download
+        className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors text-sm font-medium"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" x2="12" y1="15" y2="3"/>
+        </svg>
+        Download CV
+      </a>
+    </div>
+
+    <CodeLine num={11}><span></span></CodeLine>
+    <CodeLine num={12}><Cm>{'// Available for:'}</Cm></CodeLine>
+    <CodeLine num={13}><Cm>{'// ✅ Full-time positions'}</Cm></CodeLine>
+    <CodeLine num={14}><Cm>{'// ✅ Freelance projects'}</Cm></CodeLine>
+    <CodeLine num={15}><Cm>{'// ✅ Open source collaboration'}</Cm></CodeLine>
+    <CodeLine num={16}><Cm>{'// ✅ Technical consulting'}</Cm></CodeLine>
+    <CodeLine num={17}><span></span></CodeLine>
+    <CodeLine num={18}><Kw>export default</Kw> <Fn>contact</Fn>;</CodeLine>
   </div>
 );
 

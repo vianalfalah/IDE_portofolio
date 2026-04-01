@@ -12,18 +12,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!data) {
     return {
-      title: "File Not Found | Portfolio",
+      title: "File Not Found | Oviano Gunadi AL",
     }
   }
 
   return {
-    title: `${data.title} | Portfolio`,
+    title: `${data.title} | Oviano Gunadi AL`,
     description: data.description,
     openGraph: {
       title: data.title,
       description: data.description,
       type: "website",
-      url: `https://yourdomain.com/portfolio/${file}`,
+      url: `https://vianalfalah-portofolio.vercel.app/portfolio/${file}`,
+      siteName: "Oviano Gunadi AL Portfolio",
     },
     twitter: {
       card: "summary_large_image",
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: data.description,
     },
     alternates: {
-      canonical: `/portfolio/${file}`,
+      canonical: `https://vianalfalah-portofolio.vercel.app/portfolio/${file}`,
     },
   }
 }

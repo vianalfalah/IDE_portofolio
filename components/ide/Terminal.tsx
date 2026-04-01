@@ -5,17 +5,20 @@ import { ChevronUp, ChevronDown, Terminal as TermIcon, X } from "lucide-react";
 
 const terminalLines = [
   { type: "command" as const, text: "$ npm run dev" },
-  { type: "output" as const, text: "  VITE v5.4.19  ready in 234ms" },
   { type: "output" as const, text: "" },
-  { type: "success" as const, text: "  ➜  Local:   http://localhost:5173/" },
-  { type: "output" as const, text: "  ➜  Network: http://192.168.1.42:5173/" },
+  { type: "success" as const, text: "  ▲ Next.js 15.5.14" },
   { type: "output" as const, text: "" },
-  { type: "command" as const, text: '$ echo "Welcome to my portfolio! 🚀"' },
-  { type: "success" as const, text: "Welcome to my portfolio! 🚀" },
-  { type: "command" as const, text: "$ cat about.txt" },
-  { type: "output" as const, text: "Frontend Developer | 5+ years experience" },
-  { type: "output" as const, text: "Passionate about clean code & great UX" },
-  { type: "output" as const, text: "Navigate using the file explorer on the left ←" },
+  { type: "output" as const, text: "  - Local:        http://localhost:3000" },
+  { type: "output" as const, text: "  - Network:      http://192.168.100.153:3000" },
+  { type: "output" as const, text: "" },
+  { type: "success" as const, text: "  ✓ Starting..." },
+  { type: "success" as const, text: "  ✓ Ready in 1.2s" },
+  { type: "output" as const, text: "" },
+  { type: "command" as const, text: '$ curl -I https://vianalfalah-portofolio.vercel.app' },
+  { type: "output" as const, text: "HTTP/2 200" },
+  { type: "output" as const, text: "content-type: text/html; charset=utf-8" },
+  { type: "output" as const, text: "" },
+  { type: "success" as const, text: "✨ Portfolio deployed & running!" },
 ];
 
 const Terminal = () => {

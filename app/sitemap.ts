@@ -2,9 +2,9 @@ import { MetadataRoute } from "next"
 import { portfolioFiles } from "@/lib/content"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://yourdomain.com"
+  const baseUrl = "https://vianalfalah-portofolio.vercel.app"
 
-  const routes = Object.entries(portfolioFiles).map(([file, data]) => ({
+  const routes = Object.keys(portfolioFiles).map((file) => ({
     url: `${baseUrl}/portfolio/${file}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
