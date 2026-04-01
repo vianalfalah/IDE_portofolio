@@ -1,29 +1,28 @@
-import { X, FileText, Briefcase, Code, GraduationCap, Wrench, Mail } from "lucide-react";
-import { FileId } from "./Sidebar";
+import { X, FileText, Code, GraduationCap, Wrench, Mail } from "lucide-react";
+import { getFileName } from "@/data/fileTree";
 
 interface TabBarProps {
-  openTabs: FileId[];
-  activeTab: FileId;
-  onTabSelect: (tab: FileId) => void;
-  onTabClose: (tab: FileId) => void;
+  openTabs: string[];
+  activeTab: string;
+  onTabSelect: (tab: string) => void;
+  onTabClose: (tab: string) => void;
 }
 
-const fileInfo: Record<FileId, { name: string; icon: React.ElementType }> = {
-  readme: { name: "README.md", icon: FileText },
-  experience: { name: "experience.tsx", icon: Briefcase },
-  freelance: { name: "freelance.tsx", icon: Code },
-  education: { name: "education.ts", icon: GraduationCap },
-  skills: { name: "skills.json", icon: Wrench },
-  contact: { name: "contact.ts", icon: Mail },
+const getTabIcon = (fileId: string) => {
+  if (fileId === "readme") return FileText;
+  if (fileId === "education") return GraduationCap;
+  if (fileId === "skills") return Wrench;
+  if (fileId === "contact") return Mail;
+  return Code;
 };
 
 const TabBar = ({ openTabs, activeTab, onTabSelect, onTabClose }: TabBarProps) => {
   return (
     <div className="flex bg-ide-tab border-b border-border overflow-x-auto ide-scrollbar">
       {openTabs.map((tab) => {
-        const info = fileInfo[tab];
         const isActive = tab === activeTab;
-        const Icon = info.icon;
+        const Icon = getTabIcon(tab);
+        const name = getFileName(tab);
         return (
           <div
             key={tab}
@@ -35,7 +34,7 @@ const TabBar = ({ openTabs, activeTab, onTabSelect, onTabClose }: TabBarProps) =
             onClick={() => onTabSelect(tab)}
           >
             <Icon size={14} className={isActive ? "text-ide-sidebar-active" : ""} />
-            <span className="truncate">{info.name}</span>
+            <span className="truncate max-w-[150px]">{name}</span>
             <button
               className="ml-1 p-0.5 rounded opacity-0 group-hover:opacity-100 hover:bg-secondary transition-all"
               onClick={(e) => {
