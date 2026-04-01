@@ -21,7 +21,7 @@ const TitleBar = () => {
           />
         </div>
         <span className="text-xs text-muted-foreground ml-3">
-          portfolio.dev — DevEditor
+          vian.dev — DevEditor
         </span>
       </div>
 
