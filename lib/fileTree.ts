@@ -24,29 +24,14 @@ export const fileTree: FileNode[] = [
     children: [
       { id: "experience/index", name: "index", type: "file", ext: ".tsx", icon: "file-text" },
       {
-        id: "experience/tech-startup",
-        name: "tech-startup-indonesia",
+        id: "experience/qoin",
+        name: "qoin-digital-indonesia",
         type: "folder",
         children: [
-          { id: "experience/tech-startup/dashboard-app", name: "dashboard-app", type: "file", ext: ".tsx", icon: "code" },
-          { id: "experience/tech-startup/design-system", name: "design-system", type: "file", ext: ".tsx", icon: "code" },
-        ],
-      },
-      {
-        id: "experience/digital-agency",
-        name: "digital-agency-jakarta",
-        type: "folder",
-        children: [
-          { id: "experience/digital-agency/ecommerce-platform", name: "ecommerce-platform", type: "file", ext: ".tsx", icon: "code" },
-          { id: "experience/digital-agency/corporate-web", name: "corporate-web", type: "file", ext: ".tsx", icon: "code" },
-        ],
-      },
-      {
-        id: "experience/software-house",
-        name: "software-house-bandung",
-        type: "folder",
-        children: [
-          { id: "experience/software-house/crm-system", name: "crm-system", type: "file", ext: ".tsx", icon: "code" },
+          { id: "experience/qoin/payment-gateway", name: "payment-gateway", type: "file", ext: ".tsx", icon: "code" },
+          { id: "experience/qoin/cash-crypto", name: "cash-crypto", type: "file", ext: ".tsx", icon: "code" },
+          { id: "experience/qoin/korlantas", name: "korlantas", type: "file", ext: ".tsx", icon: "code" },
+          { id: "experience/qoin/landing-page", name: "landing-page", type: "file", ext: ".tsx", icon: "code" },
         ],
       },
     ],
@@ -58,35 +43,19 @@ export const fileTree: FileNode[] = [
     children: [
       { id: "freelance/index", name: "index", type: "file", ext: ".tsx", icon: "file-text" },
       {
-        id: "freelance/fashion-brand",
-        name: "fashion-brand-lokal",
+        id: "freelance/dss-ahu",
+        name: "dss-ahu",
         type: "folder",
         children: [
-          { id: "freelance/fashion-brand/ecommerce", name: "ecommerce", type: "file", ext: ".tsx", icon: "code" },
+          { id: "freelance/dss-ahu/dashboard", name: "analytics-dashboard", type: "file", ext: ".tsx", icon: "code" },
         ],
       },
       {
-        id: "freelance/startup-fintech",
-        name: "startup-fintech",
+        id: "freelance/siloam",
+        name: "siloam-ipd",
         type: "folder",
         children: [
-          { id: "freelance/startup-fintech/dashboard", name: "dashboard-analytics", type: "file", ext: ".tsx", icon: "code" },
-        ],
-      },
-      {
-        id: "freelance/manufaktur",
-        name: "perusahaan-manufaktur",
-        type: "folder",
-        children: [
-          { id: "freelance/manufaktur/company-profile", name: "company-profile", type: "file", ext: ".tsx", icon: "code" },
-        ],
-      },
-      {
-        id: "freelance/lembaga-pendidikan",
-        name: "lembaga-pendidikan",
-        type: "folder",
-        children: [
-          { id: "freelance/lembaga-pendidikan/lms", name: "lms-platform", type: "file", ext: ".tsx", icon: "code" },
+          { id: "freelance/siloam/ipd", name: "hospital-management", type: "file", ext: ".tsx", icon: "code" },
         ],
       },
     ],

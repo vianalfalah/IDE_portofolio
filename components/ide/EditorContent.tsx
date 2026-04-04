@@ -23,7 +23,7 @@ const CodeLine = ({
     <span className="w-12 text-right pr-4 text-ide-line-number select-none shrink-0">
       {num}
     </span>
-    <span className="flex-1">{children}</span>
+    <span className="flex-1 whitespace-pre-wrap break-words">{children}</span>
   </div>
 );
 
@@ -132,7 +132,7 @@ const IndexView = ({ data }: { data: IndexSummary }) => {
 };
 
 // === PROJECT DETAIL VIEW ===
-const ProjectView = ({ data }: { data: ProjectData }) => {
+const ProjectView = ({ data, projectId }: { data: ProjectData; projectId: string }) => {
   let line = 1;
   return (
     <div className="text-sm leading-7">
@@ -171,6 +171,12 @@ const ProjectView = ({ data }: { data: ProjectData }) => {
         {"  "}
         <Pr>period</Pr>: <Str>"{data.period}"</Str>,
       </CodeLine>
+      {data.url && (
+        <CodeLine num={line++}>
+          {"  "}
+          <Pr>link</Pr>: <a href={data.url} target="_blank" rel="noopener noreferrer" className="text-syntax-string hover:underline">"{data.url}"</a>,
+        </CodeLine>
+      )}
       <CodeLine num={line++}>
         <span></span>
       </CodeLine>
@@ -211,22 +217,32 @@ const ProjectView = ({ data }: { data: ProjectData }) => {
 
       {/* Render images inline with code aesthetic */}
       <div className="pl-12 pr-4 py-2 flex gap-3 overflow-x-auto ide-scrollbar">
-        {data.images.map((img, i) => (
-          <div
-            key={i}
-            className="shrink-0 rounded border border-border overflow-hidden group relative"
-          >
-            <img
-              src={img.src}
-              alt={img.alt}
-              className="w-[280px] h-[160px] object-cover transition-transform group-hover:scale-105"
-              loading="lazy"
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-background/80 backdrop-blur-sm px-2 py-1 text-[10px] text-muted-foreground">
-              {img.alt}
+        {data.images.map((img, i) => {
+          // Map to convention: /assets/images/projects/{projectId}/preview-{number}.png or similar
+          // For simplicty we'll try to load .jpg, .png usually handled by using standard names.
+          // By default we try `.png` then fallback to dummy.
+          const localPath = `/assets/images/projects/${projectId}/preview-${i + 1}.png`;
+          return (
+            <div
+              key={i}
+              className="shrink-0 rounded border border-border overflow-hidden group relative bg-muted"
+            >
+              <img
+                src={localPath}
+                alt={img.alt}
+                onError={(e) => {
+                  // Fallback to dummy image if local image isn't available yet
+                  e.currentTarget.src = img.src;
+                }}
+                className="w-[280px] h-[160px] object-cover transition-transform group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-background/80 backdrop-blur-sm px-2 py-1 text-[10px] text-muted-foreground">
+                {img.alt}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <CodeLine num={line++}>{"  ],"}</CodeLine>
@@ -286,16 +302,16 @@ const ReadmeContent = () => (
     </CodeLine>
     <CodeLine num={6}>
       <span>
-        Seorang <Str>Frontend Web Developer</Str> berpengalaman lebih dari
+        <Str>Frontend Developer</Str> dengan pengalaman <Nm>5+ tahun</Nm>
       </span>
     </CodeLine>
     <CodeLine num={7}>
       <span>
-        <Nm>5 tahun</Nm> dalam membangun aplikasi web modern yang
+        membangun scalable web applications dan data-driven dashboards
       </span>
     </CodeLine>
     <CodeLine num={8}>
-      <span>performant, accessible, dan user-friendly.</span>
+      <span>menggunakan React dan Next.js.</span>
     </CodeLine>
     <CodeLine num={9}>
       <span></span>
@@ -304,8 +320,9 @@ const ReadmeContent = () => (
     {/* CV Download Button */}
     <div className="pl-12 pr-4 py-2">
       <a
-        href="/assets/documents/CV Oviano Gunadi AL.pdf"
-        download
+        href="https://drive.google.com/file/d/1uYclZnNEWD8VIaR4PFXRdbKEiTKsVhhe/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
         className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors text-sm font-medium"
       >
         <svg
@@ -338,29 +355,27 @@ const ReadmeContent = () => (
     </CodeLine>
     <CodeLine num={13}>
       <span>
-        - ⚛️ <Str>React</Str> / <Str>Next.js</Str> / <Str>Vue.js</Str>
+        - ⚛️ <Str>React.js</Str> / <Str>Next.js</Str>
       </span>
     </CodeLine>
     <CodeLine num={14}>
       <span>
-        - 📘 <Str>TypeScript</Str> / <Str>JavaScript ES6+</Str>
+        - 📘 <Str>TypeScript</Str> / <Str>JavaScript</Str>
       </span>
     </CodeLine>
     <CodeLine num={15}>
       <span>
-        - 🎨 <Str>Tailwind CSS</Str> / <Str>Styled Components</Str> /{" "}
-        <Str>SCSS</Str>
+        - 🎨 <Str>Tailwind CSS</Str> / <Str>SCSS</Str> / <Str>Material UI</Str> / <Str>Shadcn UI</Str>
       </span>
     </CodeLine>
     <CodeLine num={16}>
       <span>
-        - 🧪 <Str>Jest</Str> / <Str>React Testing Library</Str> /{" "}
-        <Str>Cypress</Str>
+        - 📦 <Str>Redux</Str> / <Str>Zustand</Str> / <Str>TanStack Query</Str>
       </span>
     </CodeLine>
     <CodeLine num={17}>
       <span>
-        - 🔧 <Str>Git</Str> / <Str>CI/CD</Str> / <Str>Docker</Str>
+        - 🔧 <Str>Git</Str> / <Str>Bitbucket</Str> / <Str>Jira</Str> / <Str>Figma</Str>
       </span>
     </CodeLine>
     <CodeLine num={18}>
@@ -426,7 +441,7 @@ const EducationContent = () => (
     <CodeLine num={10}>{"  {"}</CodeLine>
     <CodeLine num={11}>
       {"    "}
-      <Pr>institution</Pr>: <Str>"Universitas Teknologi Indonesia"</Str>,
+      <Pr>institution</Pr>: <Str>"Universitas Indraprasta PGRI (UNINDRA)"</Str>,
     </CodeLine>
     <CodeLine num={12}>
       {"    "}
@@ -434,7 +449,7 @@ const EducationContent = () => (
     </CodeLine>
     <CodeLine num={13}>
       {"    "}
-      <Pr>period</Pr>: <Str>"2015 — 2019"</Str>,
+      <Pr>period</Pr>: <Str>"2018 — 2022"</Str>,
     </CodeLine>
     <CodeLine num={14}>{"  },"}</CodeLine>
     <CodeLine num={15}>{"]"}</CodeLine>
@@ -449,29 +464,13 @@ const EducationContent = () => (
     </CodeLine>
     <CodeLine num={19}>
       {"  "}
-      <Str>"Meta Frontend Developer Professional Certificate"</Str>,
+      <Str>"Bootcamp Dumbways.ID - Fullstack Web Developer"</Str>,
     </CodeLine>
-    <CodeLine num={20}>
-      {"  "}
-      <Str>"AWS Certified Cloud Practitioner"</Str>,
-    </CodeLine>
+    <CodeLine num={20}>{"]"}</CodeLine>
     <CodeLine num={21}>
-      {"  "}
-      <Str>"Google UX Design Certificate"</Str>,
-    </CodeLine>
-    <CodeLine num={22}>
-      {"  "}
-      <Str>"Dicoding — Menjadi React Web Developer Expert"</Str>,
-    </CodeLine>
-    <CodeLine num={23}>
-      {"  "}
-      <Str>"FreeCodeCamp — Responsive Web Design"</Str>,
-    </CodeLine>
-    <CodeLine num={24}>{"]"}</CodeLine>
-    <CodeLine num={25}>
       <span></span>
     </CodeLine>
-    <CodeLine num={26}>
+    <CodeLine num={22}>
       <Kw>export</Kw> {"{ "}
       <Fn>formalEducation</Fn>, <Fn>certifications</Fn>
       {" }"};
@@ -496,8 +495,7 @@ const SkillsContent = () => (
     </CodeLine>
     <CodeLine num={5}>
       {"    "}
-      <Str>"TypeScript"</Str>, <Str>"JavaScript"</Str>, <Str>"HTML5"</Str>,{" "}
-      <Str>"CSS3"</Str>
+      <Str>"TypeScript"</Str>, <Str>"JavaScript"</Str>
     </CodeLine>
     <CodeLine num={6}>{"  ],"}</CodeLine>
     <CodeLine num={7}>
@@ -506,8 +504,7 @@ const SkillsContent = () => (
     </CodeLine>
     <CodeLine num={8}>
       {"    "}
-      <Str>"React"</Str>, <Str>"Next.js"</Str>, <Str>"Vue.js"</Str>,{" "}
-      <Str>"Nuxt.js"</Str>
+      <Str>"React.js"</Str>, <Str>"Next.js"</Str>
     </CodeLine>
     <CodeLine num={9}>{"  ],"}</CodeLine>
     <CodeLine num={10}>
@@ -516,8 +513,8 @@ const SkillsContent = () => (
     </CodeLine>
     <CodeLine num={11}>
       {"    "}
-      <Str>"Tailwind CSS"</Str>, <Str>"Styled Components"</Str>,{" "}
-      <Str>"SCSS/SASS"</Str>, <Str>"CSS Modules"</Str>
+      <Str>"Tailwind CSS"</Str>, <Str>"SCSS"</Str>, <Str>"Material UI"</Str>,{" "}
+      <Str>"Shadcn UI"</Str>
     </CodeLine>
     <CodeLine num={12}>{"  ],"}</CodeLine>
     <CodeLine num={13}>
@@ -526,44 +523,24 @@ const SkillsContent = () => (
     </CodeLine>
     <CodeLine num={14}>
       {"    "}
-      <Str>"Redux Toolkit"</Str>, <Str>"Zustand"</Str>, <Str>"React Query"</Str>
-      , <Str>"Pinia"</Str>
+      <Str>"Redux"</Str>, <Str>"Zustand"</Str>, <Str>"TanStack Query"</Str>
     </CodeLine>
     <CodeLine num={15}>{"  ],"}</CodeLine>
     <CodeLine num={16}>
       {"  "}
-      <Pr>"testing"</Pr>: [
+      <Pr>"tools"</Pr>: [
     </CodeLine>
     <CodeLine num={17}>
       {"    "}
-      <Str>"Jest"</Str>, <Str>"React Testing Library"</Str>,{" "}
-      <Str>"Cypress"</Str>, <Str>"Playwright"</Str>
+      <Str>"Git"</Str>, <Str>"Bitbucket"</Str>, <Str>"Keycloak"</Str>,{" "}
+      <Str>"Postman"</Str>,
     </CodeLine>
-    <CodeLine num={18}>{"  ],"}</CodeLine>
-    <CodeLine num={19}>
-      {"  "}
-      <Pr>"tools"</Pr>: [
-    </CodeLine>
-    <CodeLine num={20}>
+    <CodeLine num={18}>
       {"    "}
-      <Str>"Git"</Str>, <Str>"Docker"</Str>, <Str>"Figma"</Str>,{" "}
-      <Str>"Webpack"</Str>, <Str>"Vite"</Str>
+      <Str>"Insomnia"</Str>, <Str>"Jira"</Str>, <Str>"Figma"</Str>, <Str>"VS Code"</Str>
     </CodeLine>
-    <CodeLine num={21}>{"  ],"}</CodeLine>
-    <CodeLine num={22}>
-      {"  "}
-      <Pr>"softSkills"</Pr>: [
-    </CodeLine>
-    <CodeLine num={23}>
-      {"    "}
-      <Str>"Team Leadership"</Str>, <Str>"Code Review"</Str>,
-    </CodeLine>
-    <CodeLine num={24}>
-      {"    "}
-      <Str>"Agile/Scrum"</Str>, <Str>"Technical Writing"</Str>
-    </CodeLine>
-    <CodeLine num={25}>{"  ]"}</CodeLine>
-    <CodeLine num={26}>{"}"}</CodeLine>
+    <CodeLine num={19}>{"  ]"}</CodeLine>
+    <CodeLine num={20}>{"}"}</CodeLine>
   </div>
 );
 
@@ -588,17 +565,21 @@ const ContactContent = () => (
     </CodeLine>
     <CodeLine num={6}>
       {"  "}
-      <Pr>linkedin</Pr>: <Str>"www.linkedin.com/in/vianalfalah"</Str>,
+      <Pr>phone</Pr>: <Str>"0896 3629 9984"</Str>,
     </CodeLine>
     <CodeLine num={7}>
       {"  "}
-      <Pr>github</Pr>: <Str>"https://github.com/vianalfalah"</Str>,
+      <Pr>linkedin</Pr>: <Str>"www.linkedin.com/in/vianalfalah"</Str>,
     </CodeLine>
     <CodeLine num={8}>
       {"  "}
+      <Pr>github</Pr>: <Str>"https://github.com/vianalfalah"</Str>,
+    </CodeLine>
+    <CodeLine num={9}>
+      {"  "}
       <Pr>location</Pr>: <Str>"Indonesia 🇮🇩"</Str>,
     </CodeLine>
-    <CodeLine num={9}>{"}"}</CodeLine>
+    <CodeLine num={10}>{"}"}</CodeLine>
     <CodeLine num={10}>
       <span></span>
     </CodeLine>
@@ -606,8 +587,9 @@ const ContactContent = () => (
     {/* CV Download Button */}
     <div className="pl-12 pr-4 py-2">
       <a
-        href="/assets/documents/CV Oviano Gunadi AL.pdf"
-        download
+        href="https://drive.google.com/file/d/1uYclZnNEWD8VIaR4PFXRdbKEiTKsVhhe/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
         className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors text-sm font-medium"
       >
         <svg
@@ -676,7 +658,7 @@ const EditorContent = ({ activeFile }: EditorContentProps) => {
 
     // Check project content
     if (projectContents[activeFile]) {
-      return <ProjectView data={projectContents[activeFile]} />;
+      return <ProjectView data={projectContents[activeFile]} projectId={activeFile} />;
     }
 
     // Fallback
